@@ -17,3 +17,4 @@ programmingBook = Book 10 "Hello, Haskell" ["The guys"]
 
 getTitle (book) = bookTitle book
 
+-- pick up on RECURSIVE TYPES
