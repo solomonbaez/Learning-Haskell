@@ -32,3 +32,19 @@ infiniteSlice pos = take pos [0, 1..]
 getEvenNums maxNum = [x*2 | x <- [1..maxNum]]
 
 oddBoomBangs xs = [if x < 10 then "BOOM!" else "BANG!" | x <-xs, odd x]
+
+removeNonUpper st = [c | c <- st, c `elem` ['A'..'Z']]
+
+--tuples function as static lists
+--they can also be nonhomogenous
+safeZip xs ys = if length xs == length ys 
+                then zip xs ys
+                else error "unequal list lengths"
+
+triangles = [(a,b,c) | c<-[1..10], b<-[1..10], a<-[1..10]]
+rightTriangles = [(a,b,c) | c<-[1..10], b<-[1..10], a<-[1..10], 
+                  a^2 + b^2 == c^2]
+
+
+
+
