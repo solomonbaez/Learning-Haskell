@@ -1,29 +1,48 @@
-data Fruit = Apple | Pear
+ --as patterns require the @ operator
+ --allow for a more generalized pattern
+ -- capital :: String -> String
+ -- capital "" = "Empty string!"
+ -- capital all@(x:xs) = "The first letter of " ++ all ++ " is " ++ [x]
 
-whichFruit::String->Fruit
-whichFruit f = case f of
-                  "apple" -> Apple
-                  "pear"  -> Pear
+--Patters are a way to match and deconstruct values
+--Guards are a way to test the boolean validity of values/properties
+--Guards function as large if/else trees!
+floatOrSink :: (RealFloat a) => a -> a -> String 
+floatOrSink mass volume 
+  | density < 1.2       = "Huh, quite light..."
+  | density <= 1000.0   = "Float!"
+  | otherwise           = "Sink!" 
+  where density = mass / volume
 
---guard implementation
-nodesAreSame (Node a _ _) (Node b _ _)
-  | a==b         = Just a
-nodesAreSame _ _ = Nothing
+max' :: (Ord a) => a -> a -> a
+max' a b
+  | a > b     = a
+  | otherwise = b
 
---lend function with guard implementation
-lend3 amount balance
-  | amount <= 0       = Nothing
-  | amount > reserve  = Nothing
-  | otherwise         = Just newBalance
-  where reserve = 100
-        newBalance = balance - amount
+compare' :: (Ord a) => a -> a -> Ordering
+compare' a b 
+  | a > b     = GT
+  | a == b    = EQ
+  | otherwise = LT
 
---comparative myDrop function 
---original implementation and guarded implementation
-myDrop n xs = if n <= 0 || null xs
-              then xs
-              else myDrop (n - 1) (tail xs)
+--the where keywork can be used to pattern match
+initials :: String -> String -> String
+initials firstName lastName = [f] ++ ". " ++ [l] ++ "."
+  where (f:_) = firstName
+        (l:_) = lastName
 
-myDropGuarded n xs | n <= 0 = xs
-myDropGuarded _ []          = []
-myDropGuarded n (_:xs)      = myDropGuarded (n - 1) xs
+--let/in bindings function on a more restricted scope than where
+--critically they are expressions, and can be separated with ;
+cylinder :: (RealFloat a) => a -> a -> a
+cylinder r h = 
+  let sideArea  = 2 * pi * r * h
+      topArea   = pi * r^2
+  in  sideArea + (2 * topArea)
+
+calculateDensities :: (RealFloat a) => [(a, a)] -> [a]
+calculateDensities xs = [density | (m, v) <- xs, let density = m / v]
+
+describeList :: [a] -> String
+describeList xs = "The list is " ++ case xs of []   -> "empty."
+                                               [x]  -> "singleton."
+                                               xs   -> "long!"
