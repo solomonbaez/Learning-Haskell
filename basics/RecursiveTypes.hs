@@ -19,3 +19,5 @@ data BinaryTree a = Node a (BinaryTree a) (BinaryTree a)
 
 root = Node "root" (Node "left child" Empty Empty)
                    (Node "right child" Empty Empty)
+
+
