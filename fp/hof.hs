@@ -41,6 +41,27 @@ zipWith' _ [] _ = []
 zipWith' _ _ [] = []
 zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
 
+--------------------------------------------------
+--IMPORTANT
 --i.e. fn (a -> b) ++ x:xs ([a]) and returns ([b])
 map' :: (a -> b) -> [a] -> [b]
-map' fn (x:xs) = fn x : map fn xs
+map' _ [] = []
+map' fn (x:xs) = fn x : map' fn xs
+
+--filter by boolean predicate
+filter' :: (a -> Bool) -> [a] -> [a]
+filter' _ [] = []
+filter' p (x:xs)
+  | p x         = x : filter' p xs
+  | otherwise   = filter' p xs
+--------------------------------------------------
+
+quicksort2 :: (Ord a) => [a] -> [a]
+quicksort2 [] = []
+quicksort2 (x:xs) = 
+  let lhs = quicksort2 (filter (<=x) xs)
+      rhs = quicksort2 (filter (>x) xs)
+  in  lhs ++ [x] ++ rhs
+
+
+
