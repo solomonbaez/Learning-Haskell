@@ -1,3 +1,4 @@
+--pattern matching ++ list comprehensions
 quicksort :: (Ord a) => [a] -> [a]
 quicksort []  = []
 quicksort (x:xs) =
