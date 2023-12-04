@@ -71,4 +71,17 @@ sum' xs = foldl (\accum x -> accum + x) 0 xs
 map' :: (a -> b) -> [a] -> [b]
 map' f xs = foldr (\x acc -> f x : acc) [] xs
 
+--the $ operator has the lowest execution priority
+--therefore it can be used to clean up highly parenthesized code
+--
+--function composition in haskell is defined by .
+--it often takes the place of \ lambda functions for clarity
 
+oddSquareSum :: Integer
+--composition!
+-- oddSquareSum = sum . takeWhile (<1000) . filter odd . map (^2) $ [1..]
+--
+oddSquareSum =  
+  let oddSquares = filter odd $ map (^2) [1..]
+      belowLimit = takeWhile (<1000) oddSquares
+  in  sum belowLimit
