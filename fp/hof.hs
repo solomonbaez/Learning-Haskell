@@ -42,11 +42,11 @@ zipWith' _ _ [] = []
 zipWith' f (x:xs) (y:ys) = f x y : zipWith' f xs ys
 
 --------------------------------------------------
---IMPORTANT
---i.e. fn (a -> b) ++ x:xs ([a]) and returns ([b])
-map' :: (a -> b) -> [a] -> [b]
-map' _ [] = []
-map' fn (x:xs) = fn x : map' fn xs
+-- --IMPORTANT
+-- --i.e. fn (a -> b) ++ x:xs ([a]) and returns ([b])
+-- map' :: (a -> b) -> [a] -> [b]
+-- map' _ [] = []
+-- map' fn (x:xs) = fn x : map' fn xs
 
 --filter by boolean predicate
 filter' :: (a -> Bool) -> [a] -> [a]
@@ -63,5 +63,12 @@ quicksort2 (x:xs) =
       rhs = quicksort2 (filter (>x) xs)
   in  lhs ++ [x] ++ rhs
 
+--folds reduce a list to some certain single value
+--foldl == fold from the left
+sum' :: (Num a) => [a] -> a
+sum' xs = foldl (\accum x -> accum + x) 0 xs
+
+map' :: (a -> b) -> [a] -> [b]
+map' f xs = foldr (\x acc -> f x : acc) [] xs
 
 
